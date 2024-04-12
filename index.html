@@ -1,14 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Web dev resourrces</title>
-    <link rel="stylesheet" href="style.css">
-  </head>
-  <body>
-    <h1>Hello</h1>
-	<script src="index.js"></script>
-  </body>
-</htm
+    <title>My Projects</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="stars"></div>
+
+<div class="container">
+    <h1 class="project-title">My Projects</h1>
+    <div class="project-slider" tabindex="0">
+        <div class="arrow-left">&lt;</div>
+        <div class="project-card">
+            <h2>Card Hover</h2>
+            <div class="links">
+                <a href="https://github.com/UshnishG/Web-Dev-Resources/tree/main/CardHover" target="_blank" class="project-link">Repository</a> | <a href="CardHover/index.html" class="project-link">Deployment</a>
+            </div>
+        </div>
+        <div class="project-card">
+            <h2>Expanding Cards</h2>
+            <div class="links">
+                <a href="https://github.com/UshnishG/Web-Dev-Resources/tree/main/ExpCards" target="_blank" class="project-link">Repository</a> | <a href="ExpCards/index.html" class="project-link">Deployment</a>
+            </div>
+        </div>
+        <div class="project-card">
+            <h2>Glow Buttons</h2>
+            <div class="links">
+                <a href="https://github.com/UshnishG/Web-Dev-Resources/tree/main/GlowButtons" target="_blank" class="project-link">Repository</a> | <a href="GlowButtons/index.html" class="project-link">Deployment</a>
+            </div>
+        </div>
+        <div class="project-card">
+            <h2>Login Form</h2>
+            <div class="links">
+                <a href="https://github.com/UshnishG/Web-Dev-Resources/tree/main/LoginForm" target="_blank" class="project-link">Repository</a> | <a href="LoginForm/index.html" class="project-link">Deployment</a>
+            </div>
+        </div>
+        <div class="arrow-right">&gt;</div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+
+<script>
+    const slider = document.querySelector('.project-slider');
+    const arrowLeft = document.querySelector('.arrow-left');
+    const arrowRight = document.querySelector('.arrow-right');
+    const projectCards = document.querySelectorAll('.project-card');
+    const scrollStep = 300; // Adjust the scroll step as needed
+
+    // Function to highlight the card in the center of the view and add red glow effect
+    function highlightCardInView() {
+        const scrollPosition = slider.scrollLeft;
+        const viewportWidth = slider.offsetWidth;
+
+        projectCards.forEach(card => {
+            const cardRect = card.getBoundingClientRect();
+            const cardCenter = cardRect.left + cardRect.width / 2;
+
+            if (cardCenter >= scrollPosition && cardCenter <= scrollPosition + viewportWidth) {
+                projectCards.forEach(c => {
+                    c.classList.remove('highlighted');
+                    c.classList.remove('red-glow');
+                });
+                card.classList.add('highlighted');
+                card.classList.add('red-glow');
+            }
+        });
+    }
+
+    // Move slider left
+    arrowLeft.addEventListener('click', () => {
+        slider.scrollBy({
+            left: -scrollStep,
+            behavior: 'smooth'
+        });
+        // Highlight card when scrolling
+        highlightCardInView();
+    });
+
+    // Move slider right
+    arrowRight.addEventListener('click', () => {
+        slider.scrollBy({
+            left: scrollStep,
+            behavior: 'smooth'
+        });
+        // Highlight card when scrolling
+        highlightCardInView();
+    });
+
+    // Highlight the card when clicked
+    projectCards.forEach(card => {
+        card.addEventListener('click', () => {
+            projectCards.forEach(c => {
+                c.classList.remove('highlighted');
+                c.classList.remove('red-glow');
+            });
+            card.classList.add('highlighted');
+            card.classList.add('red-glow');
+        });
+    });
+
+    // Function to scroll left or right when arrow keys are pressed
+    function handleArrowKeys(e) {
+        if (e.key === 'ArrowLeft') {
+            slider.scrollBy({
+                left: -scrollStep,
+                behavior: 'smooth'
+            });
+        } else if (e.key === 'ArrowRight') {
+            slider.scrollBy({
+                left: scrollStep,
+                behavior: 'smooth'
+            });
+        }
+        // Highlight card when scrolling
+        highlightCardInView();
+    }
+
+    // Sliding with arrow keys
+    slider.addEventListener('keydown', handleArrowKeys);
+
+    // Move arrow with scrolling
+    slider.addEventListener('scroll', () => {
+        const scrollPosition = slider.scrollLeft;
+        arrowLeft.style.left = `${scrollPosition}px`;
+        arrowRight.style.right = `${-scrollPosition}px`;
+        // Highlight card when scrolling
+        highlightCardInView();
+    });
+</script>
+
+</body>
+</html>
