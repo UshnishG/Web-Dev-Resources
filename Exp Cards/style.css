@@ -1,0 +1,37 @@
+.container {
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px), radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  background-color: aqua;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.panel {
+  width: 200px;
+  height: 300px;
+  margin: 0 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.5s;
+  background-size: cover;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.panel.active {
+  transform: scale(1.1);
+}
+
+.panel h3 {
+  color: #fff;
+  font-size: 24px;
+  margin: 0;
+}
+
+.panel:not(.active) h3 {
+  display: none;
+}
